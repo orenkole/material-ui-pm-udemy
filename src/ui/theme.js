@@ -85,6 +85,15 @@ export default createMuiTheme({
     }
   },
   overrides: {
+    MuiFormControlLabel: {
+      label: {
+        color: arcBlue,
+        fontWeight: 700,
+      },
+      labelPlacementStart: {
+        marginLeft: 0,
+      }
+    },
     MuiInputLabel: {
       root: {
         color: arcBlue,
@@ -104,6 +113,6 @@ export default createMuiTheme({
           borderBottom: `2px solid ${arcBlue}`
         }
       }
-    }
+    },
   }
 });

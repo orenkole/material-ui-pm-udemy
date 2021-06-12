@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/styles";
 import { useTheme } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import AddIcon from "@material-ui/icons/Add";
+import Switch from "@material-ui/core/Switch";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const useStyles = makeStyles(theme => ({
 
@@ -12,9 +18,75 @@ export default function ProjectManager() {
   const classes = useStyles();
   const theme = useTheme();
 
+  const [websiteChecked, setWebsiteChecked] = useState(false);
+  const [iOSChecked, setiOSChecked] = useState(false);
+  const [androidChecked, setAndroidChecked] = useState(false);
+  const [softwareChecked, setSoftwareChecked] = useState(false);
+
   return <Grid container direction="column">
-    <Grid item>
+    <Grid item style={{ marginTop: "2em", marginLeft: "5em", }}>
       <Typography variant="h1">Projects</Typography>
+    </Grid>
+    <Grid item>
+      <TextField
+        placeholder="Search project details or crate a new entry"
+        style={{ width: "35em", marginLeft: "5em" }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <AddIcon color="primary" />
+            </InputAdornment>
+          )
+        }}
+      />
+    </Grid>
+    <Grid item style={{ marginLeft: "5em", marginTop: "2em" }}>
+      <FormGroup row>
+        <FormControlLabel
+          style={{ marginRight: "5em" }}
+          control={
+            <Switch
+              checked={websiteChecked}
+              onChange={() => setWebsiteChecked(!websiteChecked)}
+            />
+          }
+          label="Websites"
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          style={{ marginRight: "5em" }}
+          control={
+            <Switch
+              checked={iOSChecked}
+              onChange={() => setiOSChecked(!iOSChecked)}
+            />
+          }
+          label="iOS Apps"
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          style={{ marginRight: "5em" }}
+          control={
+            <Switch
+              checked={androidChecked}
+              onChange={() => setAndroidChecked(!androidChecked)}
+            />
+          }
+          label="Android Apps"
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          style={{ marginRight: "5em" }}
+          control={
+            <Switch
+              checked={softwareChecked}
+              onChange={() => setSoftwareChecked(!softwareChecked)}
+            />
+          }
+          label="Custom software"
+          labelPlacement="start"
+        />
+      </FormGroup>
     </Grid>
   </Grid>
 }
