@@ -22,8 +22,28 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-function createData(name, date, service, features, complexity, platforms, users, total) {
-  return { name, date, service, features, complexity, platforms, users, total }
+function createData(
+  name,
+  date,
+  service,
+  features,
+  complexity,
+  platforms,
+  users,
+  total,
+  search
+) {
+  return {
+    name,
+    date,
+    service,
+    features,
+    complexity,
+    platforms,
+    users,
+    total,
+    search
+  };
 }
 
 export default function ProjectManager() {
@@ -34,13 +54,59 @@ export default function ProjectManager() {
     createData(
       "Zachary Reece",
       "11/2/19",
+      "Website",
       "E-Commerce",
       "N/A",
       "N/A",
       "N/A",
-      "$1500"
+      "$1500",
+      true
     ),
-  ])
+    createData(
+      "Bill Gates",
+      "10/17/19",
+      "Custom Software",
+      "GPS, Push Notifications, Users/Authentication, File Transfer",
+      "Medium",
+      "Web Application",
+      "0-10",
+      "$1600",
+      true
+    ),
+    createData(
+      "Steve Jobs",
+      "2/13/19",
+      "Custom Software",
+      "Photo/Video, File Transfer, Users/Authentication",
+      "Low",
+      "Web Application",
+      "10-100",
+      "$1250",
+      true
+    ),
+    createData(
+      "Stan Smith",
+      "2/13/19",
+      "Mobile App",
+      "Photo/Video, File Transfer, Users/Authentication",
+      "Low",
+      "iOS, Android",
+      "10-100",
+      "$1250",
+      true
+    ),
+    createData(
+      "Albert Einstein",
+      "2/13/19",
+      "Mobile App",
+      "Photo/Video, File Transfer, Users/Authentication",
+      "Low",
+      "Android",
+      "10-100",
+      "$1250",
+      true
+    )
+  ]);
 
   const [websiteChecked, setWebsiteChecked] = useState(false);
   const [iOSChecked, setiOSChecked] = useState(false);
@@ -117,32 +183,33 @@ export default function ProjectManager() {
         <FilterListIcon color="secondary" style={{ fontSize: 50 }} />
       </Grid>
     </Grid>
-    <Grid item>
-      <TableContainer component={Paper}>
+    <Grid item style={{ marginBottom: "15em" }}>
+      <TableContainer component={Paper} elevation={0}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Service</TableCell>
-              <TableCell>Features</TableCell>
-              <TableCell>Complexity</TableCell>
-              <TableCell>Platforms</TableCell>
-              <TableCell>Users</TableCell>
-              <TableCell>Total</TableCell>
+              <TableCell align="center">Name</TableCell>
+              <TableCell align="center">Date</TableCell>
+              <TableCell align="center">Service</TableCell>
+              <TableCell align="center">Features</TableCell>
+              <TableCell align="center">Complexity</TableCell>
+              <TableCell align="center">Platforms</TableCell>
+              <TableCell align="center">Users</TableCell>
+              <TableCell align="center">Total</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {
               rows.map((row, index) => (
                 <TableRow key={index}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.date}</TableCell>
-                  <TableCell>{row.service}</TableCell>
-                  <TableCell>{row.features}</TableCell>
-                  <TableCell>{row.complexity}</TableCell>
-                  <TableCell>{row.platforms}</TableCell>
-                  <TableCell>{row.users}</TableCell>
-                  <TableCell>{row.total}</TableCell>
+                  <TableCell align="center">{row.name}</TableCell>
+                  <TableCell align="center">{row.date}</TableCell>
+                  <TableCell align="center">{row.service}</TableCell>
+                  <TableCell align="center">{row.features}</TableCell>
+                  <TableCell align="center">{row.complexity}</TableCell>
+                  <TableCell align="center">{row.platforms}</TableCell>
+                  <TableCell align="center">{row.users}</TableCell>
+                  <TableCell align="center">{row.total}</TableCell>
                 </TableRow>
               ))
             }
