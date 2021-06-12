@@ -120,6 +120,7 @@ export default function ProjectManager() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [name, setName] = useState("");
   const [date, setDate] = useState(new Date());
+  const [total, setTotal] = useState("")
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -230,7 +231,10 @@ export default function ProjectManager() {
             </Table>
           </TableContainer>
         </Grid>
-        <Dialog open={dialogOpen}
+        <Dialog
+          fullWidth
+          maxWidth="md"
+          open={dialogOpen}
           onClose={() => setDialogOpen(false)}
         >
           <Grid container justify="center">
@@ -241,23 +245,42 @@ export default function ProjectManager() {
             </Grid>
           </Grid>
           <DialogContent>
-            <Grid container>
-              <Grid item container direction="column">
-                <Grid item>
-                  <TextField
-                    label="Name"
-                    id="name"
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                  />
+            <Grid container justify="space-between">
+              <Grid item>
+                <Grid item container direction="column" sm>
+                  <Grid item>
+                    <TextField
+                      label="Name"
+                      id="name"
+                      value={name}
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
-              <Grid item container direction="column">
-                <Grid item>
-                  <KeyboardDatePicker format="MM/dd/yyyy"
-                    value={date}
-                    onChange={(newDate) => setDate(newDate)}
-                  />
+              <Grid item>
+                <Grid item container direction="column" sm
+                  style={{ marginTop: 16 }}
+                >
+                  <Grid item>
+                    <KeyboardDatePicker format="MM/dd/yyyy"
+                      value={date}
+                      onChange={(newDate) => setDate(newDate)}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid item container direction="column" sm>
+                  <Grid item>
+                    <TextField
+                      InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+                      value={total}
+                      id={total}
+                      label="Total"
+                      onChange={event => setTotal(event.target.value)}
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
