@@ -319,7 +319,10 @@ export default function ProjectManager() {
                         aria-label="service"
                         name="service"
                         value={service}
-                        onChange={event => setService(event.target.value)}
+                        onChange={event => {
+                          setService(event.target.value);
+                          setFeatures([]);
+                        }}
                       >
                         <FormControlLabel
                           classes={{ label: classes.service }}
