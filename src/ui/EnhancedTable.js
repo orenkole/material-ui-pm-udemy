@@ -20,6 +20,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import Snackbar from "@material-ui/core/Snackbar";
+import Button from "@material-ui/core/Button";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -133,9 +135,15 @@ const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 const EnhancedTableToolbar = (props) => {
-  const { rows, selected, setRows } = props;
+  const { rows, selected, setRows, setSelected } = props;
   const classes = useToolbarStyles();
   const { numSelected } = props;
+  const [undo, setUndo] = React.useState([])
+  const [alert, setAlert] = React.useState({
+    open: false,
+    backgroundColor: "#ff3232",
+    message: "Row deleted"
+  })
 
   const onDelete = () => {
     const newRows = [...rows];
@@ -143,6 +151,17 @@ const EnhancedTableToolbar = (props) => {
       return selected.includes(row.name);
     })
     selectedRows.map(row => row.search = false);
+    setRows(newRows);
+    setUndo(selectedRows); // save rows in 'undo' state
+    setAlert({ ...alert, open: true })
+  }
+
+  const onUndo = () => {
+    setSelected([]);
+    setAlert({ ...alert, open: false })
+    const newRows = [...rows]
+    const redo = [...undo]
+    redo.forEach(row => row.search = true)
     setRows(newRows);
   }
 
@@ -173,6 +192,19 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
       )}
+      <Snackbar
+        open={alert.open}
+        ContentProps={{
+          style: {
+            backgroundColor: alert.backgroundColor
+          }
+        }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        message={alert.message}
+        autoHideDuration={4000}
+        onClose={() => setAlert(false)}
+        action={<Button variant="contained" onClick={onUndo}>undo</Button>}
+      />
     </Toolbar>
   );
 };
@@ -274,6 +306,7 @@ export default function EnhancedTable(props) {
           numSelected={selected.length}
           selected={selected}
           setRows={setRows}
+          setSelected={setSelected}
         />
         <TableContainer>
           <Table
