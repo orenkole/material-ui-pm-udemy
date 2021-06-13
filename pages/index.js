@@ -342,6 +342,7 @@ export default function ProjectManager() {
                     </Grid>
                     <Grid item style={{ marginTop: "5em" }}>
                       <Select
+                        disabled={service === "Website"}
                         MenuProps={{ style: { zIndex: 1302 } }}
                         style={{ width: "12em" }}
                         labelId="platforms"
@@ -393,18 +394,21 @@ export default function ProjectManager() {
                         onChange={event => setComplexity(event.target.value)}
                       >
                         <FormControlLabel
+                          disabled={service === "Website"}
                           classes={{ label: classes.service }}
                           value="Low"
                           label="Low"
                           control={<Radio />}
                         />
                         <FormControlLabel
+                          disabled={service === "Website"}
                           classes={{ label: classes.service }}
                           value="Medium"
                           label="Medium"
                           control={<Radio />}
                         />
                         <FormControlLabel
+                          disabled={service === "Website"}
                           classes={{ label: classes.service }}
                           value="High"
                           label="High"
@@ -441,18 +445,21 @@ export default function ProjectManager() {
                         onChange={event => setUsers(event.target.value)}
                       >
                         <FormControlLabel
+                          disabled={service === "Website"}
                           classes={{ label: classes.service }}
                           value="0-10"
                           label="0-10"
                           control={<Radio />}
                         />
                         <FormControlLabel
+                          disabled={service === "Website"}
                           classes={{ label: classes.service }}
                           value="10-100"
                           label="10-100"
                           control={<Radio />}
                         />
                         <FormControlLabel
+                          disabled={service === "Website"}
                           classes={{ label: classes.service }}
                           value="100+"
                           label="100+"
