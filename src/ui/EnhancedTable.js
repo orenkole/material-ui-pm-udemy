@@ -133,8 +133,18 @@ const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 const EnhancedTableToolbar = (props) => {
+  const { rows, selected, setRows } = props;
   const classes = useToolbarStyles();
   const { numSelected } = props;
+
+  const onDelete = () => {
+    const newRows = [...rows];
+    const selectedRows = newRows.filter(row => {
+      return selected.includes(row.name);
+    })
+    selectedRows.map(row => row.search = false);
+    setRows(newRows);
+  }
 
   return (
     <Toolbar
@@ -152,7 +162,7 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={onDelete}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -196,7 +206,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EnhancedTable(props) {
-  const { rows, page, setPage } = props;
+  const { rows, page, setPage, setRows } = props;
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
@@ -259,7 +269,12 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          rows={rows}
+          numSelected={selected.length}
+          selected={selected}
+          setRows={setRows}
+        />
         <TableContainer>
           <Table
             className={classes.table}
