@@ -155,10 +155,10 @@ export default function ProjectManager() {
         format(date, "MM/dd/yy"),
         service,
         features.join(", "),
-        complexity,
-        platforms.join(", "),
-        users,
-        total,
+        service === "Website" ? "N/A" : complexity,
+        service === "Website" ? "N/A" : platforms.join(", "),
+        service === "Website" ? "N/A" : users,
+        `$${total}`,
       )
     ]);
     setDialogOpen(false);
