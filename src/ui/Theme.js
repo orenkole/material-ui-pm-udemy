@@ -85,6 +85,13 @@ export default createMuiTheme({
     }
   },
   overrides: {
+    MuiSvgIcon: {
+      root: {
+        "&.MuiSelect-icon": {
+          fill: arcOrange,
+        }
+      }
+    },
     MuiTableCell: {
       head: {
         color: arcBlue,
