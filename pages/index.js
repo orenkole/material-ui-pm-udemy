@@ -131,6 +131,7 @@ export default function ProjectManager() {
 
   const platformOptions = ["Web", "iOS", "Android"]
   const featureOptions = ["Photo/Video", "GPS", "File transfer", "Users/Authentication", "Biometrics", "Push Notifications"]
+  const websiteOptions = ["Basiic", "Interactive", "E-Commerce"]
 
   const [websiteChecked, setWebsiteChecked] = useState(false);
   const [iOSChecked, setiOSChecked] = useState(false);
@@ -482,8 +483,14 @@ export default function ProjectManager() {
                         value={features}
                         onChange={event => setFeatures(event.target.value)}
                       >
-                        {
-                          featureOptions.map((feature) => (
+                        {service === "Website"
+                          ? websiteOptions.map((feature) => (
+                            <MenuItem
+                              key={feature}
+                              value={feature}
+                            >{feature}</MenuItem>
+                          ))
+                          : featureOptions.map((feature) => (
                             <MenuItem
                               key={feature}
                               value={feature}
