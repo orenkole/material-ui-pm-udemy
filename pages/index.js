@@ -25,11 +25,21 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import zIndex from "@material-ui/core/styles/zIndex";
+import Button from "@material-ui/core/Button";
+import { format } from "date-fns";
 
 const useStyles = makeStyles(theme => ({
   service: {
     fontWeight: 300,
+  },
+  button: {
+    color: "#fff",
+    backgroundColor: theme.palette.common.orange,
+    borderRadius: 50,
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.light,
+    }
   }
 }))
 
@@ -135,6 +145,23 @@ export default function ProjectManager() {
   const [users, setUsers] = useState("");
   const [platforms, setPlatforms] = useState([]);
   const [features, setFeatures] = useState([]);
+
+  const addProject = () => {
+    setRows([
+      ...rows,
+      createData(
+        name,
+        format(date, "MM/dd/yy"),
+        service,
+        features.join(", "),
+        complexity,
+        platforms.join(", "),
+        users,
+        total,
+      )
+    ]);
+    setDialogOpen(false);
+  }
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -283,7 +310,7 @@ export default function ProjectManager() {
                         aria-label="service"
                         name="service"
                         value={service}
-                        onChange={event => serService(event.target.value)}
+                        onChange={event => setService(event.target.value)}
                       >
                         <FormControlLabel
                           classes={{ label: classes.service }}
@@ -452,6 +479,20 @@ export default function ProjectManager() {
                     </Grid>
                   </Grid>
                 </Grid>
+              </Grid>
+            </Grid>
+            <Grid container justify="center">
+              <Grid item style={{ marginTop: "3em" }}>
+                <Button
+                  color="primary"
+                  style={{ fontWeight: 300 }}
+                  onClick={() => setDialogOpen(false)}
+                >Cancel</Button>
+                <Button
+                  variant="contained"
+                  className={classes.button}
+                  onClick={addProject}
+                >Add Project +</Button>
               </Grid>
             </Grid>
           </DialogContent>
