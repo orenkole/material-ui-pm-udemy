@@ -161,6 +161,14 @@ export default function ProjectManager() {
       )
     ]);
     setDialogOpen(false);
+    setName("");
+    setDate(new Date());
+    setTotal("");
+    setService("");
+    setComplexity("");
+    setUsers("");
+    setPlatforms([]);
+    setFeatures([]);
   }
 
   return (
@@ -314,7 +322,7 @@ export default function ProjectManager() {
                       >
                         <FormControlLabel
                           classes={{ label: classes.service }}
-                          value="website"
+                          value="Website"
                           label="Website"
                           control={<Radio />}
                         />
@@ -492,6 +500,10 @@ export default function ProjectManager() {
                   variant="contained"
                   className={classes.button}
                   onClick={addProject}
+                  disabled={service === "Website"
+                    ? name.length === 0 || total.length === 0 || features.length === 0
+                    : name.length === 0 || total.length === 0 || features.length === 0 || users.length === 0 || complexity.length === 0 || platform.length === 0 || service.length === 0
+                  }
                 >Add Project +</Button>
               </Grid>
             </Grid>
