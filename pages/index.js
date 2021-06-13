@@ -146,6 +146,7 @@ export default function ProjectManager() {
   const [users, setUsers] = useState("");
   const [platforms, setPlatforms] = useState([]);
   const [features, setFeatures] = useState([]);
+  const [search, setSearch] = useState("");
 
   const addProject = () => {
     setRows([
@@ -159,6 +160,7 @@ export default function ProjectManager() {
         service === "Website" ? "N/A" : platforms.join(", "),
         service === "Website" ? "N/A" : users,
         `$${total}`,
+        true,
       )
     ]);
     setDialogOpen(false);
@@ -172,6 +174,26 @@ export default function ProjectManager() {
     setFeatures([]);
   }
 
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+    const rowData = rows.map(row => {
+      console.log(Object.values(row));
+      return Object.values(row).filter(option => (option !== true && option !== false))
+    })
+    console.log(rowData);
+    const matches = rowData.map(row => row.map(option => {
+      return option.toLowerCase().includes(event.target.value.toLowerCase())
+    }))
+
+    const newRows = [...rows];
+    matches.map((row, index) => row.includes(true)
+      ? newRows[index].search = true
+      : newRows[index].search = false
+    )
+
+    setRows(newRows);
+  }
+
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container direction="column">
@@ -180,6 +202,8 @@ export default function ProjectManager() {
         </Grid>
         <Grid item>
           <TextField
+            value={search}
+            onChange={handleSearch}
             placeholder="Search project details or crate a new entry"
             style={{ width: "35em", marginLeft: "5em" }}
             InputProps={{
@@ -264,7 +288,7 @@ export default function ProjectManager() {
               </TableHead>
               <TableBody>
                 {
-                  rows.map((row, index) => (
+                  rows.filter(row => row.search === true).map((row, index) => (
                     <TableRow key={index}>
                       <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">{row.date}</TableCell>
